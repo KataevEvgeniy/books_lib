@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { Box, Grid2 as Grid, Button, Modal, Paper, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import PageNavigation from "./PageNavigation.jsx";
@@ -18,6 +18,10 @@ const FB2Reader = ({ file, fontSize, pageMode, height, width, onChangePage, last
         }
     };
 
+    useEffect(() => {
+        console.log(pageMode);
+    },[pageMode]);
+
     const onLoadDescription = (description) => {
         setBookDescription(description);
     };
@@ -34,26 +38,28 @@ const FB2Reader = ({ file, fontSize, pageMode, height, width, onChangePage, last
 
             {/* Режим двойной страницы */}
             {pageMode === "double" && (
+                <>
                 <Grid container spacing={2}>
-                    <Grid item xs={6} style={{ scrollbarWidth: "none" }}>
+                    <Grid item size={6} >
                         {pages[currentPage] &&
                             pages[currentPage].map((html, index) => (
                                 <div key={index} dangerouslySetInnerHTML={{ __html: html }} />
                             ))}
                     </Grid>
-                    <Grid item xs={6} style={{ scrollbarWidth: "none" }}>
+                    <Grid item size={6} >
                         {pages[currentPage + 1] &&
                             pages[currentPage + 1].map((html, index) => (
                                 <div key={index} dangerouslySetInnerHTML={{ __html: html }} />
                             ))}
                     </Grid>
                 </Grid>
+                </>
             )}
 
             {/* Режим одиночной страницы */}
             {pageMode === "single" && (
                 <Grid container spacing={2}>
-                    <Grid item xs={12} style={{ scrollbarWidth: "none" }}>
+                    <Grid item size={12} style={{ scrollbarWidth: "none" }}>
                         {pages[currentPage] &&
                             pages[currentPage].map((html, index) => (
                                 <div key={index} dangerouslySetInnerHTML={{ __html: html }} />

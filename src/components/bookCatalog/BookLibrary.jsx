@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { List, Container, Box, Button } from "@mui/material";
+import {List, Container, Box, Button, IconButton, Toolbar, AppBar} from "@mui/material";
 import { useNavigate } from "react-router-dom"; // Добавляем навигацию
 import { bookStorage, Fb2Data } from "../Utilities/BookStorage.js";
 import BookListItem from "./BookListItem.jsx";
 import { parseMetaDataFb2, generateTextImage } from "../Utilities/ImageParser.js";
+import AddIcon from '@mui/icons-material/Add';
+import SyncIcon from '@mui/icons-material/Sync';
 
 const BookLibrary = () => {
     const [books, setBooks] = useState([]);
@@ -63,27 +65,41 @@ const BookLibrary = () => {
         setBooks((prevBooks) => prevBooks.filter((book) => book.id !== bookId));
     };
 
+    const iconButtonStyle = {
+        border: '1px solid #aaa',
+        borderRadius: '12px',
+        color: '#666',
+        mt: '10px',
+        width: 48,
+        height: 48,
+        mr: 1, // отступ между кнопками
+    };
+
     return (
         <Container>
+            {/* Верхняя панель с иконками, выровненными по правому краю */}
+            <Box display="flex" justifyContent="flex-end" alignItems="center" mb={3}>
+                <IconButton
+                    component="label"
+                    sx={iconButtonStyle}
+                >
+                    <AddIcon />
+                    <input type="file" hidden onChange={handleFileUpload} />
+                </IconButton>
+                <IconButton
+                    onClick={() => navigate("/sync")}
+                    sx={{ ...iconButtonStyle, mr: 0 }}
+                >
+                    <SyncIcon />
+                </IconButton>
+            </Box>
+
+            {/* Список книг */}
             <List>
                 {books.map((book, index) => (
                     <BookListItem key={index} book={book} handleDelete={handleDeleteBook} />
                 ))}
             </List>
-
-            <Box mt={4}>
-                <Button variant="contained" component="label" fullWidth>
-                    Add Book
-                    <input type="file" hidden onChange={handleFileUpload} />
-                </Button>
-            </Box>
-
-            {/* Кнопка для перехода на страницу синхронизации */}
-            <Box mt={4}>
-                <Button variant="contained" onClick={() => navigate("/sync")} fullWidth>
-                    Sync Books
-                </Button>
-            </Box>
         </Container>
     );
 };

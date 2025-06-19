@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Worker, Viewer } from "@react-pdf-viewer/core"; // импортируем необходимые компоненты
-
+import {FlowLibraryButton} from "./Toolbar.jsx"
 
 const PdfReader = ({ file }) => {
     const [fileUrl, setFileUrl] = useState(null);
@@ -20,9 +20,13 @@ const PdfReader = ({ file }) => {
     return (
         <div style={{ textAlign: "center" }}>
             {fileUrl && (
-                <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
-                    <Viewer fileUrl={fileUrl} />
-                </Worker>
+                <>
+                    <FlowLibraryButton/>
+                    <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
+                        <Viewer fileUrl={fileUrl}  />
+                    </Worker>
+                </>
+
             )}
         </div>
     );

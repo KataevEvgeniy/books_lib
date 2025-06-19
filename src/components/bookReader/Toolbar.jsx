@@ -1,6 +1,16 @@
-import { Box, Button, Typography, Slider, ToggleButtonGroup, ToggleButton, LinearProgress } from "@mui/material";
+import {
+    Box,
+    Button,
+    Typography,
+    Slider,
+    ToggleButtonGroup,
+    ToggleButton,
+    LinearProgress,
+    IconButton
+} from "@mui/material";
 import SinglePageIcon from "@mui/icons-material/LooksOne";
 import TwoPageIcon from "@mui/icons-material/LooksTwo";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -11,6 +21,36 @@ const BackButton = () => {
         <Button variant="outlined" onClick={() => navigate("/library")} sx={{ flexShrink: 0 }}>
             Back to Library
         </Button>
+    );
+};
+
+export const FlowLibraryButton = () => {
+    const navigate = useNavigate();
+
+    return (
+        <Box
+            sx={{
+                position: 'absolute',
+                top: 16,
+                left: 16,
+                zIndex: 1000,
+            }}
+        >
+            <IconButton
+                onClick={() => navigate("/library")}
+                sx={{
+                    border: '1px solid #aaa',
+                    borderRadius: '12px',
+                    color: '#666',
+                    width: 48,
+                    height: 48,
+                    backgroundColor: '#fff',
+                    boxShadow: 1,
+                }}
+            >
+                <ArrowBackIcon />
+            </IconButton>
+        </Box>
     );
 };
 

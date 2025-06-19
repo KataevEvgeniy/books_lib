@@ -9,22 +9,8 @@ import BookSyncPage from "./components/bookCatalog/BookSyncPage.jsx";
 const App = () => {
     const [selectedBook, setSelectedBook] = useState(null);
 
-
-
-
-
     return (
-        /*<>
-            {selectedBook ? (
 
-                <BookReader book={selectedBook} onBackToLibrary={() => setSelectedBook(null)} />
-
-            ) : (
-                <BookLibrary onBookSelect={setSelectedBook} />
-            )}
-            {/!*<PTPTextTransfer />*!/}
-            {/!*<PeerExchange></PeerExchange>*!/}
-        </>*/
         <Router>
             <Routes>
                 <Route path="/" element={<Navigate to="/library" />} />
